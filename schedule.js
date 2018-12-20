@@ -26,7 +26,7 @@ var schedule= [
     },
     {
       day: 'Сб',
-      startTime: 0,
+      startTime: 1,
       endTime : 18
     },
     {
@@ -37,23 +37,24 @@ var schedule= [
 ];
 
 //создаем отдельные массивы с временем начала и конца, днями недели
-var ArrayStartTime = schedule.map(a => a.startTime)
-var ArrayEndTime = schedule.map(b => b.endTime)
-var ArrayDays = schedule.map(c => c.day)
+var ArrayStartTime = schedule.map(a => a.startTime),
+    ArrayEndTime = schedule.map(b => b.endTime),
+    ArrayDays = schedule.map(c => c.day);
 
 //проверка на то что все дни с одинаковым временем
-var MondayStartTime = ArrayStartTime[0]
-var MondayEndTime = ArrayEndTime[0]
-var SundayStartTime = ArrayStartTime[6]
-var SundayEndTime = ArrayEndTime[6]
+const StartOfWeekend = 0,
+      EndOfWeekend = 6,
+      PenultOfWeekend =5,
+      MondayStartTime = ArrayStartTime[StartOfWeekend],
+      MondayEndTime = ArrayEndTime[StartOfWeekend],
+      SundayStartTime = ArrayStartTime[EndOfWeekend],
+      SundayEndTime = ArrayEndTime[EndOfWeekend];
 
-function equallyStartTime(number) {
-  return number == MondayStartTime;
-}
+var equallyStartTime = number => (number == MondayStartTime)
+                                  ? true : false;
 
-function equallyEndTime(number) {
-  return number == MondayEndTime;
-}
+var equallyEndTime = number => (number == MondayEndTime)
+                                  ? true : false;
 
 //проверка на то что сб одинакова с буднями а вс нет
 if (ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)==true)
@@ -61,8 +62,8 @@ if (ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)
   console.log ('Пн-Вс: ' +  MondayStartTime + "-" + MondayEndTime)
   }
 else {
-  delete ArrayStartTime[6]
-  delete ArrayEndTime[6]
+  delete ArrayStartTime[EndOfWeekend]
+  delete ArrayEndTime[EndOfWeekend]
 
   if ((ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)==true))
     {
@@ -71,13 +72,12 @@ else {
     }
   else {
     //отдельно рассматриваем пн-пт
-    var count = 1;
-    var n = 0;
-    var len = ArrayStartTime.length-2;
-
-    for (var j=0; j<len; j++) {
+    const len = ArrayStartTime.length-2;
+    for (let j=0; j<len; j++) {
+      let count = 1;
+      let n = 0;
       n=n+1;
-      for (var i=n; i<len; i++) {
+      for (let i=n; i<len; i++) {
         if ((ArrayStartTime[i]==ArrayStartTime[j]) && (ArrayEndTime[i]==ArrayEndTime[j]))
         {
           count++;
@@ -103,12 +103,12 @@ else {
     }
 
     //отдельно рассматриваем сб-вс
-    if ((SundayStartTime == ArrayStartTime[5]) && (SundayEndTime == ArrayEndTime[5])) {
-      console.log(ArrayDays[5]+ ' - ' + ArrayDays[6]+' : '+ SundayStartTime +'-'+ SundayEndTime);
+    if ((SundayStartTime == ArrayStartTime[PenultOfWeekend]) && (SundayEndTime == ArrayEndTime[PenultOfWeekend])) {
+      console.log(ArrayDays[PenultOfWeekend]+ ' - ' + ArrayDays[EndOfWeekend]+' : '+ SundayStartTime +'-'+ SundayEndTime);
     }
     else {
-      console.log(ArrayDays[5]+ ' : '+ ArrayStartTime[5] +'-'+ ArrayEndTime[5]);
-      console.log(ArrayDays[6]+ ' : '+ SundayStartTime +'-'+ SundayEndTime);
+      console.log(ArrayDays[PenultOfWeekend]+ ' : '+ ArrayStartTime[PenultOfWeekend] +'-'+ ArrayEndTime[PenultOfWeekend]);
+      console.log(ArrayDays[EndOfWeekend]+ ' : '+ SundayStartTime +'-'+ SundayEndTime);
     }
     }
   };
