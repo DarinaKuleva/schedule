@@ -1,4 +1,4 @@
-var schedule= [
+const schedule= [
    {
       day: 'Пн',
       startTime: 0,
@@ -26,73 +26,73 @@ var schedule= [
     },
     {
       day: 'Сб',
-      startTime: 1,
+      startTime: 8,
       endTime : 18
     },
     {
       day: 'Вс',
-      startTime: 1,
+      startTime: 8,
       endTime : 18
     }
 ];
 
 //создаем отдельные массивы с временем начала и конца, днями недели
-var ArrayStartTime = schedule.map(a => a.startTime),
+const ArrayStartTime = schedule.map(a => a.startTime),
     ArrayEndTime = schedule.map(b => b.endTime),
     ArrayDays = schedule.map(c => c.day);
 
 //проверка на то что все дни с одинаковым временем
-const StartOfWeekend = 0,
-      EndOfWeekend = 6,
-      PenultOfWeekend =5,
-      MondayStartTime = ArrayStartTime[StartOfWeekend],
-      MondayEndTime = ArrayEndTime[StartOfWeekend],
-      SundayStartTime = ArrayStartTime[EndOfWeekend],
-      SundayEndTime = ArrayEndTime[EndOfWeekend];
+const StartOfWeek = 0,
+      EndOfWeek = 6,
+      StartOfWeekend =5,
+      MondayStartTime = ArrayStartTime[StartOfWeek],
+      MondayEndTime = ArrayEndTime[StartOfWeek],
+      SundayStartTime = ArrayStartTime[EndOfWeek],
+      SundayEndTime = ArrayEndTime[EndOfWeek];
 
-var equallyStartTime = number => (number == MondayStartTime)
+let equallyStartTime = number => (number === MondayStartTime)
                                   ? true : false;
 
-var equallyEndTime = number => (number == MondayEndTime)
+let equallyEndTime = number => (number === MondayEndTime)
                                   ? true : false;
 
 //проверка на то что сб одинакова с буднями а вс нет
-if (ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)==true)
-  {
-  console.log ('Пн-Вс: ' +  MondayStartTime + "-" + MondayEndTime)
-  }
+if (ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)===true ) {
+  console.log (ArrayDays[StartOfWeek] + '-' + ArrayDays[EndOfWeek] + ':' +  MondayStartTime + "-" + MondayEndTime)
+}
 else {
-  delete ArrayStartTime[EndOfWeekend]
-  delete ArrayEndTime[EndOfWeekend]
+  delete ArrayStartTime[EndOfWeek]
+  delete ArrayEndTime[EndOfWeek]
+  console.log (ArrayStartTime);
 
-  if ((ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)==true))
+  if ((ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)===true))
     {
-    console.log ('Пн-Сб: ' +  MondayStartTime + "-" + MondayEndTime);
-    console.log ('ВС: ' + SundayStartTime + '-' + SundayEndTime)
+    console.log (ArrayDays[StartOfWeek] + '-' + ArrayDays[StartOfWeekend] + ':' +  MondayStartTime + "-" + MondayEndTime);
+    console.log (ArrayDays[EndOfWeek] + ':' + SundayStartTime + '-' + SundayEndTime)
     }
   else {
     //отдельно рассматриваем пн-пт
-    const len = ArrayStartTime.length-2;
-    for (let j=0; j<len; j++) {
+    const LengthArray = ArrayStartTime.length-2;
+    for (let j = 0; j < LengthArray; j++) {
       let count = 1;
-      let n = 0;
-      n=n+1;
-      for (let i=n; i<len; i++) {
-        if ((ArrayStartTime[i]==ArrayStartTime[j]) && (ArrayEndTime[i]==ArrayEndTime[j]))
+      let NextEl = 0;
+      NextEl = NextEl + 1;
+      for (let i = NextEl; i < LengthArray; i++) {
+        if ((ArrayStartTime[i]===ArrayStartTime[j]) && (ArrayEndTime[i]===ArrayEndTime[j]))
         {
           count++;
-          k=i;
+          LastEqualEl=i;
         }
       }
 
       if (count>=3)
       {
-        console.log(ArrayDays[j]+'-'+ArrayDays[k]+' : '+ArrayStartTime[j]+'-'+ArrayEndTime[j]);
-        if (k!=(len-1))
+        console.log(ArrayDays[j]+'-'+ArrayDays[LastEqualEl]+' : '+ArrayStartTime[j]+'-'+ArrayEndTime[j]);
+        if (LastEqualEl!=(LengthArray-1))
         {
-          while (k!=(len-1)) {
-          k=k+1;
-          console.log(ArrayDays[k]+' : '+ArrayStartTime[k]+'-'+ArrayEndTime[k]);
+          while (LastEqualEl!=(LengthArray-1)) {
+          LastEqualEl=LastEqualEl+1;
+          console.log(ArrayDays[LastEqualEl]+' : '+ArrayStartTime[LastEqualEl]+'-'+ArrayEndTime[LastEqualEl]);
           }
         }
         break;
@@ -103,13 +103,11 @@ else {
     }
 
     //отдельно рассматриваем сб-вс
-    if ((SundayStartTime == ArrayStartTime[PenultOfWeekend]) && (SundayEndTime == ArrayEndTime[PenultOfWeekend])) {
-      console.log(ArrayDays[PenultOfWeekend]+ ' - ' + ArrayDays[EndOfWeekend]+' : '+ SundayStartTime +'-'+ SundayEndTime);
-    }
-    else {
-      console.log(ArrayDays[PenultOfWeekend]+ ' : '+ ArrayStartTime[PenultOfWeekend] +'-'+ ArrayEndTime[PenultOfWeekend]);
-      console.log(ArrayDays[EndOfWeekend]+ ' : '+ SundayStartTime +'-'+ SundayEndTime);
-    }
+    ((SundayStartTime === ArrayStartTime[StartOfWeekend]) && (SundayEndTime === ArrayEndTime[StartOfWeekend]))
+      ? console.log(ArrayDays[StartOfWeekend] + ' - ' + ArrayDays[EndOfWeek]+' : '+ SundayStartTime +'-'+ SundayEndTime)
+      : ( console.log(ArrayDays[StartOfWeekend] + ' : '+ ArrayStartTime[StartOfWeekend] +'-'+ ArrayEndTime[StartOfWeekend]),
+          console.log(ArrayDays[EndOfWeek] + ' : '+ SundayStartTime +'-'+ SundayEndTime))
+
     }
   };
 
