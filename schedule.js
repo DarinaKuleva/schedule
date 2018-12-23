@@ -26,12 +26,12 @@ const schedule= [
     },
     {
       day: 'Сб',
-      startTime: 8,
+      startTime: 0,
       endTime : 18
     },
     {
       day: 'Вс',
-      startTime: 8,
+      startTime: 9,
       endTime : 18
     }
 ];
@@ -45,11 +45,14 @@ const ArrayStartTime = schedule.map(a => a.startTime),
 const StartOfWeek = 0,
       EndOfWeek = 6,
       StartOfWeekend =5,
-      MondayStartTime = ArrayStartTime[StartOfWeek],
-      MondayEndTime = ArrayEndTime[StartOfWeek],
-      SundayStartTime = ArrayStartTime[EndOfWeek],
-      SundayEndTime = ArrayEndTime[EndOfWeek];
-
+      MondayStartTime = schedule[StartOfWeek].startTime,
+      MondayEndTime = schedule[StartOfWeek].endTime,
+      SundayStartTime = schedule[EndOfWeek].startTime,
+      SundayEndTime = schedule[EndOfWeek].endTime;
+      //MondayStartTime = ArrayStartTime[StartOfWeek],
+      //MondayEndTime = ArrayEndTime[StartOfWeek],
+      //SundayStartTime = ArrayStartTime[EndOfWeek],
+      //SundayEndTime = ArrayEndTime[EndOfWeek];
 let equallyStartTime = number => (number === MondayStartTime)
                                   ? true : false;
 
@@ -57,13 +60,13 @@ let equallyEndTime = number => (number === MondayEndTime)
                                   ? true : false;
 
 //проверка на то что сб одинакова с буднями а вс нет
+
 if (ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)===true ) {
-  console.log (ArrayDays[StartOfWeek] + '-' + ArrayDays[EndOfWeek] + ':' +  MondayStartTime + "-" + MondayEndTime)
+  console.log (schedule[StartOfWeek].day + '-' + schedule[EndOfWeek].day + ':' +  MondayStartTime + "-" + MondayEndTime)
 }
 else {
   delete ArrayStartTime[EndOfWeek];
   delete ArrayEndTime[EndOfWeek];
-  console.log (ArrayStartTime);
 
   if ((ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)===true))
     {
