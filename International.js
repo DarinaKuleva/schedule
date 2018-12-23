@@ -21,7 +21,7 @@ const schedule = [
     },
     {
         day: 'FR',
-        startTime: 6,
+        startTime: 0,
         endTime: 18
     },
     {
@@ -70,17 +70,19 @@ const LengthArray = DaysOfWeek.length-1;
       }
       if (count >= 3)
       {
-        console.log(`${DaysOfWeek[j]} - ${DaysOfWeek[LastEqualEl]} : ${schedule[j].startTime} - ${schedule[j].endTime}`);
+        document.write (`${DaysOfWeek[j]} - ${DaysOfWeek[LastEqualEl]} : ${schedule[j].startTime} - ${schedule[j].endTime} <br>`);
         if (LastEqualEl!=(LengthArray))
         {
           while (LastEqualEl!=(LengthArray)) {
           LastEqualEl=LastEqualEl+1;
-          console.log(`${DaysOfWeek[LastEqualEl]} : ${schedule[LastEqualEl].startTime} - ${schedule[LastEqualEl].endTime}`);
+          document.write (`${DaysOfWeek[LastEqualEl]} : ${schedule[LastEqualEl].startTime} - ${schedule[LastEqualEl].endTime} <br>`);
           }
         }
         break;
       }
       else {
-        console.log(`${DaysOfWeek[j]} : ${schedule[j].startTime} - ${schedule[j].endTime}`);
+        document.write (`${DaysOfWeek[j]} : ${schedule[j].startTime} - ${schedule[j].endTime} <br>`);
       }
     }
+
+
