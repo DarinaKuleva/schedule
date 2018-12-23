@@ -61,8 +61,8 @@ if (ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)
   console.log (ArrayDays[StartOfWeek] + '-' + ArrayDays[EndOfWeek] + ':' +  MondayStartTime + "-" + MondayEndTime)
 }
 else {
-  delete ArrayStartTime[EndOfWeek]
-  delete ArrayEndTime[EndOfWeek]
+  delete ArrayStartTime[EndOfWeek];
+  delete ArrayEndTime[EndOfWeek];
   console.log (ArrayStartTime);
 
   if ((ArrayStartTime.every(equallyStartTime) && ArrayEndTime.every(equallyEndTime)===true))
@@ -72,25 +72,29 @@ else {
     }
   else {
     //отдельно рассматриваем пн-пт
-    const LengthArray = ArrayStartTime.length-2;
-    for (let j = 0; j < LengthArray; j++) {
+    const LengthArray = ArrayStartTime.length-3;
+    let NextEl = 0;
+    for (let j = 0; j <= LengthArray; j++) {
       let count = 1;
-      let NextEl = 0;
+
       NextEl = NextEl + 1;
-      for (let i = NextEl; i < LengthArray; i++) {
+      for (let i = NextEl; i <= LengthArray; i++) {
         if ((ArrayStartTime[i]===ArrayStartTime[j]) && (ArrayEndTime[i]===ArrayEndTime[j]))
         {
           count++;
           LastEqualEl=i;
+        }
+        else {
+          break;
         }
       }
 
       if (count>=3)
       {
         console.log(ArrayDays[j]+'-'+ArrayDays[LastEqualEl]+' : '+ArrayStartTime[j]+'-'+ArrayEndTime[j]);
-        if (LastEqualEl!=(LengthArray-1))
+        if (LastEqualEl!=(LengthArray))
         {
-          while (LastEqualEl!=(LengthArray-1)) {
+          while (LastEqualEl!=(LengthArray)) {
           LastEqualEl=LastEqualEl+1;
           console.log(ArrayDays[LastEqualEl]+' : '+ArrayStartTime[LastEqualEl]+'-'+ArrayEndTime[LastEqualEl]);
           }
