@@ -36,9 +36,9 @@ const schedule = [
     }
 ];
 
-const language = 'en',
-      EnDays = 'Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday',
-      RuDays = 'Понедельник, Вторник, Среда, Четверг, Пятница, Суббота, Воскресенье',
+const language = 'ru',
+      EnDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      RuDays = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'],
       StartOfWeek = 0,
       EndOfWeek = 6,
       MondayStartTime = schedule[StartOfWeek].startTime,
@@ -47,10 +47,10 @@ const language = 'en',
       SundayEndTime = schedule[EndOfWeek].endTime;
 
 if (language === 'ru') {
-    var DaysOfWeek = RuDays.split(', ');
+    var DaysOfWeek = RuDays;
 }
 else {
-    var DaysOfWeek = EnDays.split(', ');
+    var DaysOfWeek = EnDays;
 }
 const LengthArray = DaysOfWeek.length-1;
     let NextEl = 0;
